@@ -1,7 +1,17 @@
 // import './App.css';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  doc,
+  getDoc,
+  query,
+  where,
+} from 'firebase/firestore';
 import React, { useState, useEffect } from 'react';
+// import img1 from './images/wheres-waldo-1.jpg';
+import img1 from './images/wheres-waldo-2.png';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBLjgVXbnLFWZ73Iabe_ttaZtp9eMJP_qc',
@@ -19,35 +29,52 @@ function populateCollection(collectionName, obj) {
   addDoc(collection(db, collectionName), obj);
 }
 
+function getCoordinates(imgName) {
+  const coords = getDocData(imgName, 'Coordinates');
+  return coords;
+}
+
+async function getDocData(collectionName, docName) {
+  const docRef = doc(db, collectionName, docName);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    console.log('Document data found:', docSnap.data());
+    return docSnap.data();
+  }
+  // docSnap.data() will be undefined in this case
+  console.error('No such document!');
+}
+
 const App = () => {
-  const [text, setText] = useState('');
-  const [num, setNum] = useState(0);
+  const [isFound, setIsFound] = useState(false);
 
-  const handleTextChange = (event) => {
-    const newText = event.target.value;
-    setText(newText);
-  };
-
-  const handleNumChange = (event) => {
-    const newNum = event.target.value;
-    setNum(newNum);
-  };
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(`Text: ${text}`);
-    console.log(`Num: ${num}`);
-    populateCollection('Test', { [text]: num });
+    // console.log(`Text: ${text}`);
+    // console.log(`Num: ${num}`);
+    // populateCollection('Test', { [text]: num });
+    const coords = await getCoordinates('Image1');
+    console.table(coords);
+  };
+
+  const handleClick = (event) => {
+    console.log(`X position: ${event.pageX - event.target.offsetLeft}`);
+    console.log(`Y position: ${event.pageY - event.target.offsetTop}`);
   };
 
   return (
     <div className="App">
-      <header className="App-header">Photo Tagging App</header>
-      <form action="" onSubmit={handleSubmit}>
+      <header className="App-header">
+        <h1>Photo Tagging App</h1>
+        {/* TODO: add Timer here */}
+      </header>
+      {/* <form action="" onSubmit={handleSubmit}>
         <input type="text" onChange={handleTextChange} value={text} />
         <input type="number" onChange={handleNumChange} value={num} />
         <input type="submit" value="Submit" />
-      </form>
+      </form> */}
+      {/* <TargetImage name="Image1" isFound={images[0].isFound} imgUrl={img1Url} /> */}
+      <img src={img1} alt="Game" onClick={handleClick} />
     </div>
   );
 };
