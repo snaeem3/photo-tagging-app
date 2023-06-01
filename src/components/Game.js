@@ -57,6 +57,14 @@ const Game = (props) => {
 
   return (
     <main className="game">
+      {levelData[level].targets.map((targetInfo, index) => (
+        <Target
+          name={targetInfo.name}
+          imgUrl={targetInfo.targetImg}
+          isFound={isFound[index]}
+          key={index}
+        />
+      ))}
       <img
         src={levelData[level].imgUrl}
         alt="Game"
@@ -64,6 +72,17 @@ const Game = (props) => {
         draggable="false"
       />
     </main>
+  );
+};
+
+const Target = (props) => {
+  const { name, imgUrl, isFound } = props;
+
+  return (
+    <figure className={`target ${isFound ? 'found' : 'not-found'}`}>
+      <img src={imgUrl} alt={name} draggable="false" />
+      <figcaption className="target-name">{name}</figcaption>
+    </figure>
   );
 };
 
