@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 import { getCollectionDocs } from '../services/firebase';
 import { levelData } from '../levels';
 
@@ -27,6 +28,7 @@ function targetFoundIndex(x, y, targetObjArray) {
 
 const Game = (props) => {
   const { level } = props;
+  console.log(levelData[level]);
 
   const [isFound, setIsFound] = useState(
     Array(levelData[level].targets.length).fill(false) // Set each target as false/Not Found
@@ -57,6 +59,7 @@ const Game = (props) => {
 
   return (
     <main className="game">
+      {/* TODO: add Timer here */}
       {levelData[level].targets.map((targetInfo, index) => (
         <Target
           name={targetInfo.name}

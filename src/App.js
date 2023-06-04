@@ -5,13 +5,16 @@ import {
   Route,
   Link,
   HashRouter,
+  useLocation,
 } from 'react-router-dom';
 import { getCollectionDocs } from './services/firebase';
+import LevelSelect from './components/LevelSelect';
 import Game from './components/Game';
 import img1 from './images/levels/wheres-waldo-2.png';
 
 const App = () => {
-  const [imgName, setImgName] = useState('Image1');
+  // const [imgName, setImgName] = useState('Image1');
+  const [selectedLevel, setSelectedLevel] = useState(0);
 
   const openHelpModal = () => {
     const helpModal = document.getElementById('help');
@@ -32,12 +35,12 @@ const App = () => {
       <div className="App">
         <header className="App-header">
           <h1>Photo Tagging App</h1>
-          {/* TODO: add Timer here */}
           <button type="button" id="help-btn" onClick={openHelpModal}>
             ?
           </button>
+          <Link to="/">Level Select</Link>
         </header>
-        <Game level={0} />
+        {/* <Game level={0} /> */}
         <dialog id="help">
           <button type="button" className="close-btn" onClick={closeModal}>
             X
@@ -53,6 +56,18 @@ const App = () => {
             </li>
           </ol>
         </dialog>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <LevelSelect
+                selectedLevel={selectedLevel}
+                setSelectedLevel={setSelectedLevel}
+              />
+            }
+          />
+          <Route path="/game" element={<Game level={selectedLevel} />} />
+        </Routes>
       </div>
     </BrowserRouter>
   );
