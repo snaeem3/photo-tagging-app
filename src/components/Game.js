@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { getCollectionDocs } from '../services/firebase';
 import { levelData } from '../levels';
+import Stopwatch from './StopWatch';
 
 function getTargets(imgName) {
   return getCollectionDocs(imgName);
@@ -28,17 +29,30 @@ function targetFoundIndex(x, y, targetObjArray) {
 
 const Game = (props) => {
   const { level } = props;
-  console.log(levelData[level]);
 
   const [isFound, setIsFound] = useState(
     Array(levelData[level].targets.length).fill(false) // Set each target as false/Not Found
   );
+  const [time, setTime] = useState(0);
+  const [gameStart, setGameStart] = useState(true);
+  const [gameEnd, setGameEnd] = useState(false);
 
   function markFound(targetIndex) {
     const currentTargetsFound = [...isFound];
     currentTargetsFound[targetIndex] = true;
     setIsFound(currentTargetsFound);
   }
+
+  useEffect(() => {
+    if (gameStart) {
+      // If game has begun
+      if (isFound.every((targetFound) => targetFound === true)) {
+        console.log('Every target found');
+        setGameEnd(true);
+      }
+    }
+    // return () => clearInterval(intervalId);
+  }, [gameStart, isFound]);
 
   const handleClick = async (event) => {
     const xClick = event.pageX - event.target.offsetLeft;
@@ -48,7 +62,6 @@ const Game = (props) => {
     const targets = await getTargets(levelData[level].collectionName);
     console.table(targets);
     const targetIndex = targetFoundIndex(xClick, yClick, targets);
-    // console.log(targetIndex >= 0 ? targets[targetIndex].name : 'invalid');
     if (targetIndex >= 0) {
       markFound(targetIndex);
       console.log(`Found ${targets[targetIndex].name}`);
@@ -59,7 +72,12 @@ const Game = (props) => {
 
   return (
     <main className="game">
-      {/* TODO: add Timer here */}
+      <Stopwatch
+        time={time}
+        setTime={setTime}
+        gameStart={gameStart}
+        gameEnd={gameEnd}
+      />
       {levelData[level].targets.map((targetInfo, index) => (
         <Target
           name={targetInfo.name}
