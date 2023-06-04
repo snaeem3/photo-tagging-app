@@ -27,6 +27,14 @@ function targetFoundIndex(x, y, targetObjArray) {
   return result;
 }
 
+function convertHundredthsToTime(hundredths) {
+  const totalSeconds = hundredths / 100;
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  return [minutes, seconds];
+}
+
 const Game = (props) => {
   const { level } = props;
 
@@ -44,8 +52,9 @@ const Game = (props) => {
   }
 
   useEffect(() => {
+    // If game has begun
     if (gameStart) {
-      // If game has begun
+      // If every target has been found
       if (isFound.every((targetFound) => targetFound === true)) {
         console.log('Every target found');
         setGameEnd(true);
@@ -53,6 +62,19 @@ const Game = (props) => {
     }
     // return () => clearInterval(intervalId);
   }, [gameStart, isFound]);
+
+  useEffect(() => {
+    const openVictoryModal = () => {
+      const victoryModal = document.getElementById('victory-modal');
+      if (victoryModal) {
+        victoryModal.showModal();
+      }
+    };
+
+    if (gameEnd) {
+      openVictoryModal();
+    }
+  }, [gameEnd]);
 
   const handleClick = async (event) => {
     const xClick = event.pageX - event.target.offsetLeft;
@@ -67,6 +89,23 @@ const Game = (props) => {
       console.log(`Found ${targets[targetIndex].name}`);
     } else {
       console.log('Nothing found here');
+    }
+  };
+
+  const handleLeaderboardEntrySubmit = (event) => {
+    event.preventDefault();
+    // console.log(event);
+    const name = document.querySelector('input#name').value;
+    const today = new Date();
+    const date = `${today.getFullYear()}-${
+      today.getMonth() + 1
+    }-${today.getDate()}`;
+  };
+
+  const closeVictoryModal = () => {
+    const victoryModal = document.getElementById('victory-modal');
+    if (victoryModal) {
+      victoryModal.close();
     }
   };
 
@@ -92,6 +131,24 @@ const Game = (props) => {
         onClick={handleClick}
         draggable="false"
       />
+      <dialog id="victory-modal">
+        <button type="button" className="close-btn" onClick={closeVictoryModal}>
+          X
+        </button>
+        <h2>You Found Everyone!</h2>
+        <p className="finish-time">
+          {`${convertHundredthsToTime(time)[0]} minutes ${
+            convertHundredthsToTime(time)[1]
+          } seconds`}
+        </p>
+        <form onSubmit={handleLeaderboardEntrySubmit}>
+          <label htmlFor="name">
+            Enter your name:
+            <input type="text" name="name" id="name" minLength="1" />
+          </label>
+          <button type="submit">Submit</button>
+        </form>
+      </dialog>
     </main>
   );
 };

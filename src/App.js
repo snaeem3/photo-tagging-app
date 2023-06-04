@@ -67,6 +67,7 @@ const App = () => {
             }
           />
           <Route path="/game" element={<Game level={selectedLevel} />} />
+          {/* <Route path="/leaderboard" element={<Leaderboard />} /> */}
         </Routes>
       </div>
     </BrowserRouter>
