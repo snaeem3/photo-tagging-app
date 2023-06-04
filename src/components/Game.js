@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import { getCollectionDocs } from '../services/firebase';
+import { getCollectionDocs, uploadEntry } from '../services/firebase';
 import { levelData } from '../levels';
 import Stopwatch from './StopWatch';
 
@@ -94,12 +94,9 @@ const Game = (props) => {
 
   const handleLeaderboardEntrySubmit = (event) => {
     event.preventDefault();
-    // console.log(event);
     const name = document.querySelector('input#name').value;
-    const today = new Date();
-    const date = `${today.getFullYear()}-${
-      today.getMonth() + 1
-    }-${today.getDate()}`;
+    uploadEntry(name, level + 1, time);
+    closeVictoryModal();
   };
 
   const closeVictoryModal = () => {

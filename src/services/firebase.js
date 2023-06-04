@@ -10,6 +10,7 @@ import {
   getDocs,
   query,
   where,
+  serverTimestamp,
 } from 'firebase/firestore';
 
 // Import the functions you need from the SDKs you need
@@ -46,7 +47,22 @@ async function getCollectionDocs(collectionName) {
   return result;
 }
 
+async function uploadEntry(name, level, completionTime) {
+  // Add a new message entry to the Firebase database.
+  try {
+    await addDoc(collection(getFirestore(), 'scores'), {
+      name,
+      time: completionTime,
+      level,
+      timestamp: serverTimestamp(),
+    });
+    console.log(`${name} added to Firebase`);
+  } catch (error) {
+    console.error('Error writing new entry to Firebase Database', error);
+  }
+}
+
 // export const firestore = firebase.firestore();
 // export const auth = app.auth();
 export default app;
-export { getCollectionDocs };
+export { getCollectionDocs, uploadEntry };
