@@ -2,15 +2,23 @@ import React, { useState, useEffect } from 'react';
 
 const Stopwatch = (props) => {
   const { time, setTime, gameStart, gameEnd } = props;
+  const [startTime, setStartTime] = useState(null);
 
   useEffect(() => {
     let intervalId;
     if (gameStart && !gameEnd) {
-      // setting time from 0 to 1 every 10 milisecond using javascript setInterval method
-      intervalId = setInterval(() => setTime(time + 1), 10);
+      setStartTime(performance.now());
+      intervalId = setInterval(() => {
+        const currentTime = performance.now();
+        const elapsedTime = currentTime - startTime;
+        setTime(Math.floor(elapsedTime / 10));
+      }, 10);
     }
-    return () => clearInterval(intervalId);
-  }, [gameStart, gameEnd, setTime, time]);
+    return () => {
+      clearInterval(intervalId);
+      setStartTime(null);
+    };
+  }, [gameStart, gameEnd, setTime, startTime]);
 
   const hours = Math.floor(time / 360000);
 
