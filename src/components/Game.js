@@ -72,8 +72,10 @@ const Game = (props) => {
   const handleClick = async (event) => {
     const natWidth = event.target.naturalWidth;
     const natHeight = event.target.naturalHeight;
-    const actualWidth = event.target.width;
-    const actualHeight = event.target.height;
+    // const actualWidth = event.target.width;
+    // const actualHeight = event.target.height;
+    const actualWidth = event.target.offsetWidth;
+    const actualHeight = event.target.offsetHeight;
     const xClick = event.pageX - event.target.offsetLeft;
     const yClick = event.pageY - event.target.offsetTop;
     console.log(`X position: ${xClick}`);
