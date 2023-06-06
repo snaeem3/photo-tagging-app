@@ -35,11 +35,13 @@ const App = () => {
       <div className="App">
         <header className="App-header">
           <h1>Photo Tagging App</h1>
-          <button type="button" id="help-btn" onClick={openHelpModal}>
-            ?
-          </button>
-          <Link to="/">Level Select</Link>
-          <Link to="/leaderboard">Leaderboard</Link>
+          <nav>
+            <Link to="/">Level Select</Link>
+            <Link to="/leaderboard">Leaderboard</Link>
+            <button type="button" id="help-btn" onClick={openHelpModal}>
+              ?
+            </button>
+          </nav>
         </header>
         <dialog id="help">
           <button type="button" className="close-btn" onClick={closeModal}>
@@ -51,8 +53,8 @@ const App = () => {
             <li>Choose your level and click Start Game</li>
             <li>Locate and click on each target in the image</li>
             <li>
-              If you find all the targets in a short time, check to see if you
-              made the leader board!
+              Enter your name to submit it to the{' '}
+              <Link to="/leaderboard">leaderboard</Link>
             </li>
           </ol>
         </dialog>

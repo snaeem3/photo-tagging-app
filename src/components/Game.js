@@ -119,7 +119,7 @@ const Game = (props) => {
         gameStart={gameStart}
         gameEnd={gameEnd}
       />
-      <div className="target-container">
+      <div className="target-container sticky-element">
         {levelData[level].targets.map((targetInfo, index) => (
           <Target
             name={targetInfo.name}
