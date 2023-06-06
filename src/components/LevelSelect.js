@@ -24,7 +24,6 @@ const LevelSelect = (props) => {
       <Link
         to={{
           pathname: `/game`,
-          // state: { selectedLevel },
         }}
         state={{ level: selectedLevel }}
       >

@@ -10,7 +10,10 @@ import {
   getDocs,
   query,
   where,
+  limit,
+  orderBy,
   serverTimestamp,
+  onSnapshot,
 } from 'firebase/firestore';
 
 // Import the functions you need from the SDKs you need
@@ -62,7 +65,28 @@ async function uploadEntry(name, level, completionTime) {
   }
 }
 
+async function loadScores(level) {
+  // Create the query to load the last 12 messages and listen for new ones.
+  const scoresQuery = query(
+    collection(getFirestore(), 'scores'),
+    where('level', '==', level),
+    orderBy('time'),
+    limit(12)
+  );
+  console.log(scoresQuery);
+  const querySnapshot = await getDocs(scoresQuery);
+  const result = [];
+  querySnapshot.forEach((document) => {
+    // doc.data() is never undefined for query doc snapshots
+    console.log(document.id, ' => ', document.data());
+    const obj = { [document.id]: document.data() };
+    result.push(document.data());
+  });
+  console.log(result);
+  return result;
+}
+
 // export const firestore = firebase.firestore();
 // export const auth = app.auth();
 export default app;
-export { getCollectionDocs, uploadEntry };
+export { getCollectionDocs, uploadEntry, loadScores };

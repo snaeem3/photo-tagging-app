@@ -10,7 +10,7 @@ import {
 import { getCollectionDocs } from './services/firebase';
 import LevelSelect from './components/LevelSelect';
 import Game from './components/Game';
-import img1 from './images/levels/wheres-waldo-2.png';
+import Leaderboard from './components/Leaderboard';
 
 const App = () => {
   // const [imgName, setImgName] = useState('Image1');
@@ -39,8 +39,8 @@ const App = () => {
             ?
           </button>
           <Link to="/">Level Select</Link>
+          <Link to="/leaderboard">Leaderboard</Link>
         </header>
-        {/* <Game level={0} /> */}
         <dialog id="help">
           <button type="button" className="close-btn" onClick={closeModal}>
             X
@@ -67,7 +67,7 @@ const App = () => {
             }
           />
           <Route path="/game" element={<Game level={selectedLevel} />} />
-          {/* <Route path="/leaderboard" element={<Leaderboard />} /> */}
+          <Route path="/leaderboard" element={<Leaderboard />} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -3,6 +3,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { getCollectionDocs, uploadEntry } from '../services/firebase';
 import { levelData } from '../levels';
 import Stopwatch from './StopWatch';
+import convertHundredthsToTime from '../utils/convertHundredthsToTime';
 
 function getTargets(imgName) {
   return getCollectionDocs(imgName);
@@ -25,14 +26,6 @@ function targetFoundIndex(x, y, targetObjArray) {
     }
   }
   return result;
-}
-
-function convertHundredthsToTime(hundredths) {
-  const totalSeconds = hundredths / 100;
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-
-  return [minutes, seconds];
 }
 
 const Game = (props) => {
@@ -135,7 +128,9 @@ const Game = (props) => {
         <h2>You Found Everyone!</h2>
         <p className="finish-time">
           {`${convertHundredthsToTime(time)[0]} minutes ${
-            convertHundredthsToTime(time)[1]
+            Math.round(
+              (convertHundredthsToTime(time)[1] + Number.EPSILON) * 100
+            ) / 100
           } seconds`}
         </p>
         <form onSubmit={handleLeaderboardEntrySubmit}>
