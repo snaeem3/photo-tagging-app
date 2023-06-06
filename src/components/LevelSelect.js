@@ -10,13 +10,19 @@ const LevelSelect = (props) => {
     <div className="level-select radio-toolbar">
       <ul className="level-list">
         {levelData.map((level, index) => (
-          <li key={index}>
-            <button
-              type="button"
-              className={selectedLevel === index ? 'selected-level' : ''}
-              onClick={(e) => setSelectedLevel(index)}
-            >
-              <h2 className="level-name">{level.levelName}</h2>
+          <li
+            key={index}
+            className={selectedLevel === index ? 'selected-level' : ''}
+          >
+            <button type="button" onClick={(e) => setSelectedLevel(index)}>
+              <img
+                className="thumbnail"
+                src={level.imgUrl}
+                alt={level.levelName}
+              />
+              <h2 className="level-name">
+                Level {level.levelNumber}- {level.levelName}
+              </h2>
             </button>
           </li>
         ))}

@@ -70,13 +70,23 @@ const Game = (props) => {
   }, [gameEnd]);
 
   const handleClick = async (event) => {
+    const natWidth = event.target.naturalWidth;
+    const natHeight = event.target.naturalHeight;
+    const actualWidth = event.target.width;
+    const actualHeight = event.target.height;
     const xClick = event.pageX - event.target.offsetLeft;
     const yClick = event.pageY - event.target.offsetTop;
     console.log(`X position: ${xClick}`);
     console.log(`Y position: ${yClick}`);
+    // Calculate the relative position based on actual vs normal image size
+    const relativeX = (xClick / actualWidth) * natWidth;
+    const relativeY = (yClick / actualHeight) * natHeight;
+    console.log(`relativeX: ${relativeX}`);
+    console.log(`relativeY: ${relativeY}`);
     const targets = await getTargets(levelData[level].collectionName);
     console.table(targets);
-    const targetIndex = targetFoundIndex(xClick, yClick, targets);
+
+    const targetIndex = targetFoundIndex(relativeX, relativeY, targets);
     if (targetIndex >= 0) {
       markFound(targetIndex);
       console.log(`Found ${targets[targetIndex].name}`);
@@ -107,19 +117,22 @@ const Game = (props) => {
         gameStart={gameStart}
         gameEnd={gameEnd}
       />
-      {levelData[level].targets.map((targetInfo, index) => (
-        <Target
-          name={targetInfo.name}
-          imgUrl={targetInfo.targetImg}
-          isFound={isFound[index]}
-          key={index}
-        />
-      ))}
+      <div className="target-container">
+        {levelData[level].targets.map((targetInfo, index) => (
+          <Target
+            name={targetInfo.name}
+            imgUrl={targetInfo.targetImg}
+            isFound={isFound[index]}
+            key={index}
+          />
+        ))}
+      </div>
       <img
         src={levelData[level].imgUrl}
         alt="Game"
         onClick={handleClick}
         draggable="false"
+        className="level"
       />
       <dialog id="victory-modal">
         <button type="button" className="close-btn" onClick={closeVictoryModal}>

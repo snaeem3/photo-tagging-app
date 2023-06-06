@@ -66,7 +66,7 @@ async function uploadEntry(name, level, completionTime) {
 }
 
 async function loadScores(level) {
-  // Create the query to load the last 12 messages and listen for new ones.
+  // Create the query to load the last 12 scores and listen for new ones.
   const scoresQuery = query(
     collection(getFirestore(), 'scores'),
     where('level', '==', level),

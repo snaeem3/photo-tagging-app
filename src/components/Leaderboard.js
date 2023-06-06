@@ -42,12 +42,14 @@ const Leaderboard = (props) => {
       <h3>Level {selectedLevel + 1} High Scores</h3>
       <table className="scores-table">
         <tr className="header-row">
+          <th>Place</th>
           <th>Name</th>
           <th>Completion Time</th>
           <th>Date</th>
         </tr>
         {scores.map((score, index) => (
           <tr key={index}>
+            <td>{index + 1}</td>
             <td>{score.name}</td>
             <td>
               {convertHundredthsToTime(score.time)[0] > 0
