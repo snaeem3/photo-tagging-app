@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { getCollectionDocs, uploadEntry } from '../services/firebase';
 import { levelData } from '../levels';
@@ -45,6 +45,18 @@ const Game = (props) => {
   }
 
   useEffect(() => {
+    // const c = document.getElementById('canvas');
+    // if (c.getContext) {
+    //   const ctx = c.getContext('2d');
+    //   const img = new Image();
+    //   img.onload = () => {
+    //     ctx.drawImage(img, 0, 0);
+    //   };
+    //   img.src = levelData[level].imgUrl;
+    // }
+  }, [level]);
+
+  useEffect(() => {
     // If game has begun
     if (gameStart) {
       // If every target has been found
@@ -53,7 +65,6 @@ const Game = (props) => {
         setGameEnd(true);
       }
     }
-    // return () => clearInterval(intervalId);
   }, [gameStart, isFound]);
 
   useEffect(() => {
@@ -70,16 +81,20 @@ const Game = (props) => {
   }, [gameEnd]);
 
   const handleClick = async (event) => {
-    const natWidth = event.target.naturalWidth;
-    const natHeight = event.target.naturalHeight;
-    // const actualWidth = event.target.width;
-    // const actualHeight = event.target.height;
+    // const natWidth = event.target.naturalWidth;
+    // const natHeight = event.target.naturalHeight;
+    const natWidth = event.target.width;
+    const natHeight = event.target.height;
     const actualWidth = event.target.offsetWidth;
     const actualHeight = event.target.offsetHeight;
     const xClick = event.pageX - event.target.offsetLeft;
     const yClick = event.pageY - event.target.offsetTop;
+
+    console.log(`width: ${event.target.width}`);
+    console.log(`offset width: ${event.target.offsetWidth}`);
     console.log(`X position: ${xClick}`);
     console.log(`Y position: ${yClick}`);
+
     // Calculate the relative position based on actual vs normal image size
     const relativeX = (xClick / actualWidth) * natWidth;
     const relativeY = (yClick / actualHeight) * natHeight;
@@ -129,12 +144,17 @@ const Game = (props) => {
           />
         ))}
       </div>
-      <img
+      {/* <img
         src={levelData[level].imgUrl}
         alt="Game"
         onClick={handleClick}
         draggable="false"
         className="level"
+      /> */}
+      <Canvas
+        imgUrl={levelData[level].imgUrl}
+        handleClick={handleClick}
+        isFound={isFound}
       />
       <dialog id="victory-modal">
         <button type="button" className="close-btn" onClick={closeVictoryModal}>
@@ -169,6 +189,46 @@ const Target = (props) => {
       <figcaption className="target-name">{name}</figcaption>
     </figure>
   );
+};
+
+const Canvas = (props) => {
+  const { imgUrl, handleClick, isFound } = props;
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+
+    const img = new Image();
+    img.src = imgUrl;
+    img.onload = () => {
+      // Once the image is loaded, we will get the width & height of the image
+      const loadedImageWidth = img.width;
+      const loadedImageHeight = img.height;
+
+      // get the scale
+      // it is the min of the 2 ratios
+      const scaleFactor = Math.min(
+        canvas.width / img.width,
+        canvas.height / img.height
+      );
+
+      // Get the new width and height based on the scale factor
+      const newWidth = img.width * scaleFactor;
+      const newHeight = img.height * scaleFactor;
+
+      // get the top left position of the image
+      // in order to center the image within the canvas
+      const x = canvas.width / 2 - newWidth / 2;
+      const y = canvas.height / 2 - newHeight / 2;
+      // context.imageSmoothingEnabled = true;
+      canvas.width = img.width;
+      canvas.height = img.height;
+      context.drawImage(img, x, y, newWidth, newHeight);
+    };
+  }, [imgUrl]);
+
+  return <canvas onClick={handleClick} ref={canvasRef} />;
 };
 
 export default Game;

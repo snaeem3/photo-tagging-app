@@ -197,6 +197,11 @@ img.level {
   border: solid 1rem var(--primary-color);
 }
 
+canvas {
+  width: 100%;
+  max-width: 100vw;
+}
+
 #victory-modal {
   text-align: center;
 }
