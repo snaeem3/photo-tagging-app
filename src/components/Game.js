@@ -3,6 +3,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { getCollectionDocs, uploadEntry } from '../services/firebase';
 import { levelData } from '../levels';
 import Stopwatch from './StopWatch';
+import GameCanvas from './GameCanvas';
 import convertHundredthsToTime from '../utils/convertHundredthsToTime';
 
 function getTargets(imgName) {
@@ -34,6 +35,9 @@ const Game = (props) => {
   const [isFound, setIsFound] = useState(
     Array(levelData[level].targets.length).fill(false) // Set each target as false/Not Found
   );
+  const [foundTargetObjs, setFoundTargetObjs] = useState(
+    Array(levelData[level].targets.length).fill({})
+  );
   const [time, setTime] = useState(0);
   const [gameStart, setGameStart] = useState(true);
   const [gameEnd, setGameEnd] = useState(false);
@@ -42,6 +46,13 @@ const Game = (props) => {
     const currentTargetsFound = [...isFound];
     currentTargetsFound[targetIndex] = true;
     setIsFound(currentTargetsFound);
+  }
+
+  function addTargetObj(targetObj, targetIndex) {
+    console.log(targetObj);
+    const currentFoundTargetObjs = [...foundTargetObjs];
+    currentFoundTargetObjs[targetIndex] = targetObj;
+    setFoundTargetObjs(currentFoundTargetObjs);
   }
 
   useEffect(() => {
@@ -100,12 +111,17 @@ const Game = (props) => {
     const relativeY = (yClick / actualHeight) * natHeight;
     console.log(`relativeX: ${relativeX}`);
     console.log(`relativeY: ${relativeY}`);
+
+    // Get targets from firebase
     const targets = await getTargets(levelData[level].collectionName);
     console.table(targets);
 
     const targetIndex = targetFoundIndex(relativeX, relativeY, targets);
     if (targetIndex >= 0) {
-      markFound(targetIndex);
+      if (!isFound[targetIndex]) {
+        markFound(targetIndex);
+        addTargetObj(targets[targetIndex], targetIndex);
+      }
       console.log(`Found ${targets[targetIndex].name}`);
     } else {
       console.log('Nothing found here');
@@ -144,17 +160,11 @@ const Game = (props) => {
           />
         ))}
       </div>
-      {/* <img
-        src={levelData[level].imgUrl}
-        alt="Game"
-        onClick={handleClick}
-        draggable="false"
-        className="level"
-      /> */}
-      <Canvas
+      <GameCanvas
         imgUrl={levelData[level].imgUrl}
         handleClick={handleClick}
         isFound={isFound}
+        foundTargetObjs={foundTargetObjs}
       />
       <dialog id="victory-modal">
         <button type="button" className="close-btn" onClick={closeVictoryModal}>
@@ -189,46 +199,6 @@ const Target = (props) => {
       <figcaption className="target-name">{name}</figcaption>
     </figure>
   );
-};
-
-const Canvas = (props) => {
-  const { imgUrl, handleClick, isFound } = props;
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
-
-    const img = new Image();
-    img.src = imgUrl;
-    img.onload = () => {
-      // Once the image is loaded, we will get the width & height of the image
-      const loadedImageWidth = img.width;
-      const loadedImageHeight = img.height;
-
-      // get the scale
-      // it is the min of the 2 ratios
-      const scaleFactor = Math.min(
-        canvas.width / img.width,
-        canvas.height / img.height
-      );
-
-      // Get the new width and height based on the scale factor
-      const newWidth = img.width * scaleFactor;
-      const newHeight = img.height * scaleFactor;
-
-      // get the top left position of the image
-      // in order to center the image within the canvas
-      const x = canvas.width / 2 - newWidth / 2;
-      const y = canvas.height / 2 - newHeight / 2;
-      // context.imageSmoothingEnabled = true;
-      canvas.width = img.width;
-      canvas.height = img.height;
-      context.drawImage(img, x, y, newWidth, newHeight);
-    };
-  }, [imgUrl]);
-
-  return <canvas onClick={handleClick} ref={canvasRef} />;
 };
 
 export default Game;
