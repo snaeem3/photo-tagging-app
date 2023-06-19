@@ -41,6 +41,7 @@ const Game = (props) => {
   const [time, setTime] = useState(0);
   const [gameStart, setGameStart] = useState(true);
   const [gameEnd, setGameEnd] = useState(false);
+  const [recentClick, setRecentClick] = useState([false, 'incorrect']);
 
   function markFound(targetIndex) {
     const currentTargetsFound = [...isFound];
@@ -74,9 +75,21 @@ const Game = (props) => {
       if (isFound.every((targetFound) => targetFound === true)) {
         console.log('Every target found');
         setGameEnd(true);
+        setRecentClick([false, 'correct']);
       }
     }
   }, [gameStart, isFound]);
+
+  useEffect(() => {
+    let timer;
+    if (gameStart && !gameEnd && recentClick[0]) {
+      timer = setTimeout(() => {
+        setRecentClick([false, 'incorrect']);
+      }, 3000);
+    }
+
+    return () => clearTimeout(timer);
+  }, [gameStart, gameEnd, recentClick]);
 
   useEffect(() => {
     const openVictoryModal = () => {
@@ -124,8 +137,10 @@ const Game = (props) => {
         addTargetObj(targets[targetIndex], targetIndex);
       }
       console.log(`Found ${targets[targetIndex].name}`);
+      setRecentClick([true, 'correct']);
     } else {
       console.log('Nothing found here');
+      setRecentClick([true, 'incorrect']);
     }
   };
 
@@ -167,6 +182,13 @@ const Game = (props) => {
         isFound={isFound}
         foundTargetObjs={foundTargetObjs}
       />
+      <div
+        className={`click-feedback-container ${
+          recentClick[0] ? recentClick[1] : ''
+        }`}
+      >
+        {recentClick[1]}
+      </div>
       <dialog id="victory-modal">
         <button type="button" className="close-btn" onClick={closeVictoryModal}>
           X

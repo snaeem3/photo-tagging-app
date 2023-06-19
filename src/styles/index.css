@@ -4,8 +4,8 @@
   --section-padding: 1rem;
   --section-margin: 1rem;
   --border-radius-default: 0.75rem;
-  --primary-color: #00df56;
-  --primary-color-dark: #027e31;
+  --primary-color: #7b1bd4;
+  --primary-color-dark: #4e1286;
   --secondary-color: rgb(18, 18, 18);
   --shade-color: #494949da;
   --color-shadow: grey;
@@ -129,6 +129,7 @@ body {
 .App {
   display: flex;
   flex-direction: column;
+  background: linear-gradient(45deg, rgb(48, 60, 170), rgb(151, 161, 255));
 }
 
 header {
@@ -241,7 +242,7 @@ main {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background: #e7eeea;
+  background: #2e2e2e;
   border-radius: var(--border-radius-default);
 }
 
@@ -264,15 +265,20 @@ main {
 
 .start-btn {
   padding: var(--section-padding);
+  margin: var(--section-margin);
 }
 
 .level-list .selected-level {
-  border: solid 3px black;
+  border: solid 3px rgb(255, 255, 255);
   /* border-radius: var(--border-radius-default); */
 }
 
 .thumbnail {
   width: 100%;
+}
+
+.stopwatch-container {
+  text-align: center;
 }
 
 .target-container {
@@ -322,6 +328,38 @@ canvas {
   border: solid 1rem var(--primary-color);
 }
 
+.click-feedback-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  border: solid 2px;
+  border-radius: var(--border-radius-default);
+  padding: var(--section-padding);
+  margin: var(--section-margin);
+  background: white;
+  opacity: 0;
+  /* display: none; */
+  visibility: hidden;
+  text-transform: capitalize;
+  transition: all 0.3s linear;
+}
+
+.click-feedback-container.correct,
+.click-feedback-container.incorrect {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0s linear;
+  /* display: block; */
+}
+
+.click-feedback-container.correct {
+  border-color: green;
+}
+
+.click-feedback-container.incorrect {
+  border-color: red;
+}
+
 #victory-modal {
   text-align: center;
 }
@@ -341,7 +379,8 @@ canvas {
 }
 
 .scores-table {
-  background: linear-gradient(#dadada);
+  /* background: white; */
+  background: linear-gradient(0deg, rgb(134, 134, 134), rgb(240, 240, 240));
   border-radius: var(--border-radius-default);
 }
 

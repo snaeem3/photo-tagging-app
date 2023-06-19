@@ -35,11 +35,12 @@ const Stopwatch = (props) => {
 
   return (
     <div className="stopwatch-container">
-      <p className="stopwatch-time">
-        {hours}:{minutes.toString().padStart(2, '0')}:
+      <h2 className="stopwatch-time">
+        {hours > 0 ? `${hours}:` : ''}
+        {minutes.toString().padStart(2, '0')}:
         {seconds.toString().padStart(2, '0')}:
         {milliseconds.toString().padStart(2, '0')}
-      </p>
+      </h2>
       {/* TO-DO Pause button */}
     </div>
   );

@@ -24,7 +24,11 @@
   "eslintConfig": {
     "extends": [
       "wesbos"
-    ]
+    ],
+    "rules": {
+      "react/prop-types": 0,
+      "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
+    }
   },
   "browserslist": {
     "production": [
