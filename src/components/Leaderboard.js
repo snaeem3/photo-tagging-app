@@ -24,47 +24,51 @@ const Leaderboard = (props) => {
   console.log(scores);
 
   return (
-    <div className="leaderboard">
+    <main className="leaderboard">
       <h2>Leaderboard</h2>
       <ul className="level-list">
         {levelData.map((level, index) => (
-          <li key={index}>
-            <button
-              type="button"
-              className={selectedLevel === index ? 'selected-level' : ''}
-              onClick={(e) => setSelectedLevel(index)}
-            >
+          <li
+            key={index}
+            className={selectedLevel === index ? 'selected-level' : ''}
+          >
+            <button type="button" onClick={(e) => setSelectedLevel(index)}>
               <h2 className="level-name">{level.levelName}</h2>
             </button>
           </li>
         ))}
       </ul>
       <h3>Level {selectedLevel + 1} High Scores</h3>
-      <table className="scores-table">
-        <tr className="header-row">
-          <th>Place</th>
-          <th>Name</th>
-          <th>Completion Time</th>
-          <th>Date</th>
-        </tr>
-        {scores.map((score, index) => (
-          <tr key={index}>
-            <td>{index + 1}</td>
-            <td>{score.name}</td>
-            <td>
-              {convertHundredthsToTime(score.time)[0] > 0
-                ? `${convertHundredthsToTime(score.time)[0]} min `
-                : ''}
-              {Math.round(
-                (convertHundredthsToTime(score.time)[1] + Number.EPSILON) * 100
-              ) / 100}{' '}
-              s
-            </td>
-            <td>{score.timestamp.toDate().toLocaleDateString('en-US')}</td>
+      <table className="scores-table box-shadow">
+        <thead>
+          <tr className="header-row">
+            <th>Place</th>
+            <th>Name</th>
+            <th>Completion Time</th>
+            <th>Date</th>
           </tr>
-        ))}
+        </thead>
+        <tbody>
+          {scores.map((score, index) => (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>{score.name}</td>
+              <td>
+                {convertHundredthsToTime(score.time)[0] > 0
+                  ? `${convertHundredthsToTime(score.time)[0]} min `
+                  : ''}
+                {Math.round(
+                  (convertHundredthsToTime(score.time)[1] + Number.EPSILON) *
+                    100
+                ) / 100}{' '}
+                s
+              </td>
+              <td>{score.timestamp.toDate().toLocaleDateString('en-US')}</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
-    </div>
+    </main>
   );
 };
 

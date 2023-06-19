@@ -11,6 +11,7 @@ import { getCollectionDocs } from './services/firebase';
 import LevelSelect from './components/LevelSelect';
 import Game from './components/Game';
 import Leaderboard from './components/Leaderboard';
+import helpIcon from './images/icons/help_FILL0_wght400_GRAD0_opsz48.svg';
 
 const App = () => {
   // const [imgName, setImgName] = useState('Image1');
@@ -39,7 +40,7 @@ const App = () => {
             <Link to="/">Level Select</Link>
             <Link to="/leaderboard">Leaderboard</Link>
             <button type="button" id="help-btn" onClick={openHelpModal}>
-              ?
+              <img className="help-img icon" src={helpIcon} alt="Help" />
             </button>
           </nav>
         </header>

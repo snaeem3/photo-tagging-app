@@ -117,6 +117,7 @@ const Game = (props) => {
     console.table(targets);
 
     const targetIndex = targetFoundIndex(relativeX, relativeY, targets);
+    console.log(`targetIndex: ${targetIndex}`);
     if (targetIndex >= 0) {
       if (!isFound[targetIndex]) {
         markFound(targetIndex);
@@ -143,7 +144,7 @@ const Game = (props) => {
   };
 
   return (
-    <main className="game">
+    <main className="game sticky-container">
       <Stopwatch
         time={time}
         setTime={setTime}
@@ -194,9 +195,9 @@ const Target = (props) => {
   const { name, imgUrl, isFound } = props;
 
   return (
-    <figure className={`target ${isFound ? 'found' : 'not-found'}`}>
-      <img src={imgUrl} alt={name} draggable="false" />
+    <figure className={`target ${isFound ? 'found' : 'not-found'} trim`}>
       <figcaption className="target-name">{name}</figcaption>
+      <img src={imgUrl} alt={name} draggable="false" />
     </figure>
   );
 };
