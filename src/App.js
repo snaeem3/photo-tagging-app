@@ -11,6 +11,7 @@ import { getCollectionDocs } from './services/firebase';
 import LevelSelect from './components/LevelSelect';
 import Game from './components/Game';
 import Leaderboard from './components/Leaderboard';
+import Footer from './components/Footer';
 import helpIcon from './images/icons/help_FILL0_wght400_GRAD0_opsz48.svg';
 
 const App = () => {
@@ -72,6 +73,7 @@ const App = () => {
           <Route path="/game" element={<Game level={selectedLevel} />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
         </Routes>
+        <Footer />
       </div>
     </BrowserRouter>
   );

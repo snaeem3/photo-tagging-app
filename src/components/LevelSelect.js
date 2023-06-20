@@ -8,7 +8,7 @@ const LevelSelect = (props) => {
 
   return (
     <main className="level-select">
-      <figure className="level-preview-container">
+      <figure className="level-preview-container box-shadow">
         <img
           className="level-preview"
           alt="Level Preview"

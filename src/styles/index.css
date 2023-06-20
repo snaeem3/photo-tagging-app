@@ -130,6 +130,7 @@ body {
   display: flex;
   flex-direction: column;
   background: linear-gradient(45deg, rgb(48, 60, 170), rgb(151, 161, 255));
+  min-height: 100vh; /* Keeps footer at bottom of page */
 }
 
 header {
@@ -203,7 +204,7 @@ main {
 .level-select {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   text-align: center;
   align-self: center;
   gap: 1rem;
@@ -279,17 +280,24 @@ main {
 
 .stopwatch-container {
   text-align: center;
+  border-radius: var(--border-radius-default);
+  padding: var(--section-padding);
 }
 
 .target-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: flex-start;
+  gap: 1rem;
   padding: 0.5rem;
-  background: rgba(255, 255, 255, 0.719);
-  border: solid 2px black;
   text-align: center;
   max-width: 100vw;
+}
+
+.target {
+  background: rgba(255, 255, 255, 0.719);
+  border: solid 2px black;
+  border-radius: var(--border-radius-default);
 }
 
 .target.found {
@@ -298,7 +306,7 @@ main {
 
 .trim {
   max-height: 30vh;
-  width: 100%;
+  /* width: 100%; */
   overflow: hidden;
 }
 
@@ -380,7 +388,7 @@ canvas {
 
 .scores-table {
   /* background: white; */
-  background: linear-gradient(0deg, rgb(134, 134, 134), rgb(240, 240, 240));
+  background: linear-gradient(0deg, rgb(175, 175, 175), rgb(240, 240, 240));
   border-radius: var(--border-radius-default);
 }
 
@@ -391,6 +399,33 @@ thead {
 /* Place column */
 thead th:nth-child(1) {
   width: fit-content;
+}
+
+td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+td:hover {
+  overflow: visible;
+}
+
+footer {
+  text-align: center;
+  pointer-events: auto;
+  padding: var(--section-padding);
+  background: rgb(0, 0, 0);
+  color: white;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+  margin-top: auto; /* Keeps footer at bottom of screen (not fixed) */
+}
+
+footer a {
+  cursor: pointer;
 }
 
 @media (min-width: 780px) {
