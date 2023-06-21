@@ -47,7 +47,7 @@ const App = () => {
         </header>
         <dialog id="help">
           <button type="button" className="close-btn" onClick={closeModal}>
-            X
+            {/* X */}
           </button>
           <h2>How to Play</h2>
 

@@ -32,6 +32,7 @@ function targetFoundIndex(x, y, targetObjArray) {
 const Game = (props) => {
   const { level } = props;
 
+  const [countdownTime, setCountdownTime] = useState(3);
   const [isFound, setIsFound] = useState(
     Array(levelData[level].targets.length).fill(false) // Set each target as false/Not Found
   );
@@ -39,7 +40,7 @@ const Game = (props) => {
     Array(levelData[level].targets.length).fill({})
   );
   const [time, setTime] = useState(0);
-  const [gameStart, setGameStart] = useState(true);
+  const [gameStart, setGameStart] = useState(false);
   const [gameEnd, setGameEnd] = useState(false);
   const [recentClick, setRecentClick] = useState([false, 'incorrect']);
 
@@ -56,18 +57,22 @@ const Game = (props) => {
     setFoundTargetObjs(currentFoundTargetObjs);
   }
 
+  // Countdown Timer
   useEffect(() => {
-    // const c = document.getElementById('canvas');
-    // if (c.getContext) {
-    //   const ctx = c.getContext('2d');
-    //   const img = new Image();
-    //   img.onload = () => {
-    //     ctx.drawImage(img, 0, 0);
-    //   };
-    //   img.src = levelData[level].imgUrl;
-    // }
-  }, [level]);
+    const countdownInterval = setInterval(() => {
+      setCountdownTime((currentCountdownTime) => currentCountdownTime - 1);
+    }, 1000);
 
+    if (countdownTime < 0) {
+      setGameStart(true);
+    }
+
+    return () => {
+      clearInterval(countdownInterval);
+    };
+  }, [countdownTime]);
+
+  // End Game Checker
   useEffect(() => {
     // If game has begun
     if (gameStart) {
@@ -80,6 +85,7 @@ const Game = (props) => {
     }
   }, [gameStart, isFound]);
 
+  // Click feedback notification
   useEffect(() => {
     let timer;
     if (gameStart && !gameEnd && recentClick[0]) {
@@ -91,6 +97,7 @@ const Game = (props) => {
     return () => clearTimeout(timer);
   }, [gameStart, gameEnd, recentClick]);
 
+  // Game End Modal
   useEffect(() => {
     const openVictoryModal = () => {
       const victoryModal = document.getElementById('victory-modal');
@@ -160,13 +167,21 @@ const Game = (props) => {
 
   return (
     <main className="game sticky-container">
+      {!gameStart ? (
+        <div className="countdown overlay">
+          <div className="countdown-container centered">
+            <h2>Game Begins in...</h2>
+            <h1>{countdownTime}</h1>
+          </div>
+        </div>
+      ) : null}
       <Stopwatch
         time={time}
         setTime={setTime}
         gameStart={gameStart}
         gameEnd={gameEnd}
       />
-      <div className="target-container sticky-element">
+      <div className={`target-container ${gameStart ? 'sticky-element' : ''}`}>
         {levelData[level].targets.map((targetInfo, index) => (
           <Target
             name={targetInfo.name}
@@ -191,7 +206,7 @@ const Game = (props) => {
       </div>
       <dialog id="victory-modal">
         <button type="button" className="close-btn" onClick={closeVictoryModal}>
-          X
+          {/* X */}
         </button>
         <h2>You Found Everyone!</h2>
         <p className="finish-time">

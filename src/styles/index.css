@@ -90,6 +90,23 @@ button:not(:disabled):hover {
   top: 0;
 }
 
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.centered {
+  position: fixed; /* or absolute */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 table {
   table-layout: fixed;
   width: 100%;
@@ -177,8 +194,13 @@ dialog .close-btn {
   position: absolute;
   top: 0rem;
   right: 0rem;
-  padding: 0.25rem;
+  padding: 1rem;
   border-radius: 0;
+  background-image: url("../images/icons/close_FILL0_wght400_GRAD0_opsz48.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: transparent;
 }
 
 #help h2 {
@@ -236,6 +258,7 @@ main {
   color: white;
   padding: var(--section-padding);
   width: 100%;
+  text-decoration: underline;
 }
 
 .level-select .buttons-container {
@@ -276,6 +299,14 @@ main {
 
 .thumbnail {
   width: 100%;
+}
+
+.countdown-container {
+  border: solid 3px black;
+  border-radius: var(--border-radius-default);
+  padding: var(--section-padding);
+  background: white;
+  text-align: center;
 }
 
 .stopwatch-container {
@@ -334,6 +365,8 @@ canvas {
   /* width: 100%;
   max-width: 100vw; */
   border: solid 1rem var(--primary-color);
+  cursor: crosshair;
+  caret-color: blue;
 }
 
 .click-feedback-container {
