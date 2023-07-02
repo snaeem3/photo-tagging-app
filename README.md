@@ -5,6 +5,7 @@ This project showcases a Where's Waldo Photo Tagging App built with React & Fire
 The correct target coordinates and leaderboard entries are stored in the Firebase Database.
 
 ## [Live View](https://snaeem3.github.io/photo-tagging-app/)
+![photo-tag-1](https://github.com/snaeem3/photo-tagging-app/assets/11710951/834ebd5d-b98d-4db3-9dd1-f2a4523fb853)
 
 ## Skills involved in this project
 
