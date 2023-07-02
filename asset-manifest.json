@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/photo-tagging-app/static/css/main.2e93e93d.css",
-    "main.js": "/photo-tagging-app/static/js/main.20fb1dcf.js",
+    "main.css": "/photo-tagging-app/static/css/main.8b49c5a8.css",
+    "main.js": "/photo-tagging-app/static/js/main.6e5c86eb.js",
     "static/js/787.6eec3de1.chunk.js": "/photo-tagging-app/static/js/787.6eec3de1.chunk.js",
     "static/media/wheres-waldo-2.png": "/photo-tagging-app/static/media/wheres-waldo-2.fdab90086656a2b55073.png",
     "static/media/wheres-waldo-ski.jpg": "/photo-tagging-app/static/media/wheres-waldo-ski.e0c6e90fc5567ca99c0c.jpg",
@@ -13,12 +13,12 @@
     "static/media/help_FILL0_wght400_GRAD0_opsz48.svg": "/photo-tagging-app/static/media/help_FILL0_wght400_GRAD0_opsz48.870f57da5f7dbf8889ac79e316a98987.svg",
     "static/media/github.svg": "/photo-tagging-app/static/media/github.9b9489c0e2327f30e86ee7e0b5f72f55.svg",
     "static/media/close_FILL0_wght400_GRAD0_opsz48.svg": "/photo-tagging-app/static/media/close_FILL0_wght400_GRAD0_opsz48.f9e1fd884e38ced99e02.svg",
-    "main.2e93e93d.css.map": "/photo-tagging-app/static/css/main.2e93e93d.css.map",
-    "main.20fb1dcf.js.map": "/photo-tagging-app/static/js/main.20fb1dcf.js.map",
+    "main.8b49c5a8.css.map": "/photo-tagging-app/static/css/main.8b49c5a8.css.map",
+    "main.6e5c86eb.js.map": "/photo-tagging-app/static/js/main.6e5c86eb.js.map",
     "787.6eec3de1.chunk.js.map": "/photo-tagging-app/static/js/787.6eec3de1.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2e93e93d.css",
-    "static/js/main.20fb1dcf.js"
+    "static/css/main.8b49c5a8.css",
+    "static/js/main.6e5c86eb.js"
   ]
 }
