@@ -41,7 +41,6 @@ async function getCollectionDocs(collectionName) {
   const result = [];
   querySnapshot.forEach((document) => {
     // doc.data() is never undefined for query doc snapshots
-    console.log(document.id, ' => ', document.data());
     const obj = { [document.id]: document.data() };
     // const obj[document.id] = document.data();
     // result.push(obj);
@@ -59,7 +58,6 @@ async function uploadEntry(name, level, completionTime) {
       level,
       timestamp: serverTimestamp(),
     });
-    console.log(`${name} added to Firebase`);
   } catch (error) {
     console.error('Error writing new entry to Firebase Database', error);
   }
@@ -73,16 +71,13 @@ async function loadScores(level) {
     orderBy('time'),
     limit(12)
   );
-  console.log(scoresQuery);
   const querySnapshot = await getDocs(scoresQuery);
   const result = [];
   querySnapshot.forEach((document) => {
     // doc.data() is never undefined for query doc snapshots
-    console.log(document.id, ' => ', document.data());
     const obj = { [document.id]: document.data() };
     result.push(document.data());
   });
-  console.log(result);
   return result;
 }
 

@@ -21,8 +21,6 @@ const Leaderboard = (props) => {
     fetchData();
   }, [selectedLevel]);
 
-  console.log(scores);
-
   return (
     <main className="leaderboard">
       <h2>Leaderboard</h2>

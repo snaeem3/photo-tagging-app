@@ -51,7 +51,6 @@ const Game = (props) => {
   }
 
   function addTargetObj(targetObj, targetIndex) {
-    console.log(targetObj);
     const currentFoundTargetObjs = [...foundTargetObjs];
     currentFoundTargetObjs[targetIndex] = targetObj;
     setFoundTargetObjs(currentFoundTargetObjs);
@@ -78,7 +77,6 @@ const Game = (props) => {
     if (gameStart) {
       // If every target has been found
       if (isFound.every((targetFound) => targetFound === true)) {
-        console.log('Every target found');
         setGameEnd(true);
         setRecentClick([false, 'correct']);
       }
@@ -121,32 +119,28 @@ const Game = (props) => {
     const xClick = event.pageX - event.target.offsetLeft;
     const yClick = event.pageY - event.target.offsetTop;
 
-    console.log(`width: ${event.target.width}`);
-    console.log(`offset width: ${event.target.offsetWidth}`);
-    console.log(`X position: ${xClick}`);
-    console.log(`Y position: ${yClick}`);
+    // console.log(`width: ${event.target.width}`);
+    // console.log(`offset width: ${event.target.offsetWidth}`);
+    // console.log(`X position: ${xClick}`);
+    // console.log(`Y position: ${yClick}`);
 
     // Calculate the relative position based on actual vs normal image size
     const relativeX = (xClick / actualWidth) * natWidth;
     const relativeY = (yClick / actualHeight) * natHeight;
-    console.log(`relativeX: ${relativeX}`);
-    console.log(`relativeY: ${relativeY}`);
+    // console.log(`relativeX: ${relativeX}`);
+    // console.log(`relativeY: ${relativeY}`);
 
     // Get targets from firebase
     const targets = await getTargets(levelData[level].collectionName);
-    console.table(targets);
 
     const targetIndex = targetFoundIndex(relativeX, relativeY, targets);
-    console.log(`targetIndex: ${targetIndex}`);
     if (targetIndex >= 0) {
       if (!isFound[targetIndex]) {
         markFound(targetIndex);
         addTargetObj(targets[targetIndex], targetIndex);
       }
-      console.log(`Found ${targets[targetIndex].name}`);
       setRecentClick([true, 'correct']);
     } else {
-      console.log('Nothing found here');
       setRecentClick([true, 'incorrect']);
     }
   };

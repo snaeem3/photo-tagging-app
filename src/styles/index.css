@@ -302,6 +302,7 @@ main {
 }
 
 .countdown-container {
+  font-size: 2rem;
   border: solid 3px black;
   border-radius: var(--border-radius-default);
   padding: var(--section-padding);
