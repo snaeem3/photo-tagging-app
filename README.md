@@ -4,7 +4,7 @@ This project showcases a Where's Waldo Photo Tagging App built with React & Fire
 
 The correct target coordinates and leaderboard entries are stored in the Firebase Database.
 
-## Live View
+## [Live View](https://snaeem3.github.io/photo-tagging-app/)
 
 ## Skills involved in this project
 
@@ -24,7 +24,7 @@ The correct target coordinates and leaderboard entries are stored in the Firebas
   - Rendering JSX code using React
   - DOM manipulation
   - Event handling
-  - Countdown and Stopwatch Timer
+  - Accurate StopWatch implementation with `performance.now()` time stamps
   - Dynamic CSS classes
 - Canvas API to draw a box with specified coordinates and styles.
   - `beginPath`, `moveTo`, `lineTo`, `closePath`, `lineWidth`, `strokeStyle`, `fillStyle`, `fill`, and `stroke` to create the box.
@@ -42,7 +42,7 @@ The correct target coordinates and leaderboard entries are stored in the Firebas
 
 ## Usage
 
-Clone the repository.
-Install the necessary dependencies using npm install.
-Run the app using npm start.
-Open the app in your web browser by navigating to http://localhost:3000.
+1. Clone the repository.
+2. Install the necessary dependencies using `npm install`.
+3. Run the app using `npm start`.
+4. Open the app in your web browser by navigating to http://localhost:3000.
