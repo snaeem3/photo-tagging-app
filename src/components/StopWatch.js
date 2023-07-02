@@ -1,37 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const Stopwatch = (props) => {
   const { time, setTime, gameStart, gameEnd } = props;
-  const [startTime, setStartTime] = useState(null);
+  const startTimeRef = useRef(null);
 
   useEffect(() => {
     let intervalId;
     if (gameStart && !gameEnd) {
-      setStartTime(performance.now());
+      // Start the stopwatch by setting the current time using performance.now()
+      startTimeRef.current = performance.now();
+
+      // Set up an interval to update the stopwatch time every 10 milliseconds
       intervalId = setInterval(() => {
         const currentTime = performance.now();
-        const elapsedTime = currentTime - startTime;
+        const elapsedTime = currentTime - startTimeRef.current;
         setTime(Math.floor(elapsedTime / 10));
       }, 10);
-    }
-    return () => {
+    } else {
+      // Stop the stopwatch by clearing the interval and resetting the start time
       clearInterval(intervalId);
-      setStartTime(null);
-    };
-  }, [gameStart, gameEnd, setTime, startTime]);
+      startTimeRef.current = null;
+    }
+
+    // Clean up the interval when the component unmounts or when gameStart/gameEnd changes
+    return () => clearInterval(intervalId);
+  }, [gameStart, gameEnd, setTime]);
 
   const hours = Math.floor(time / 360000);
-
   const minutes = Math.floor((time % 360000) / 6000);
-
   const seconds = Math.floor((time % 6000) / 100);
-
   const milliseconds = time % 100;
-
-  // Method to reset timer back to 0
-  // const reset = () => {
-  //   setTime(0);
-  // };
 
   return (
     <div className="stopwatch-container">
