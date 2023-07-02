@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/photo-tagging-app/static/css/main.2e93e93d.css",
+    "main.js": "/photo-tagging-app/static/js/main.0493bf00.js",
+    "static/js/787.6eec3de1.chunk.js": "/photo-tagging-app/static/js/787.6eec3de1.chunk.js",
+    "static/media/wheres-waldo-2.png": "/photo-tagging-app/static/media/wheres-waldo-2.fdab90086656a2b55073.png",
+    "static/media/wheres-waldo-ski.jpg": "/photo-tagging-app/static/media/wheres-waldo-ski.e0c6e90fc5567ca99c0c.jpg",
+    "static/media/wheres-waldo-robinhood.jpg": "/photo-tagging-app/static/media/wheres-waldo-robinhood.ebe04fbcd0cfaa30f09b.jpg",
+    "static/media/WilmaUmbrella.webp": "/photo-tagging-app/static/media/WilmaUmbrella.2ae9aa926088125b3e68.webp",
+    "static/media/Character.Odlaw.webp": "/photo-tagging-app/static/media/Character.Odlaw.83043b1a24cd63e41e44.webp",
+    "static/media/wizard.gif": "/photo-tagging-app/static/media/wizard.b400466309a95fbaacea.gif",
+    "index.html": "/photo-tagging-app/index.html",
+    "static/media/help_FILL0_wght400_GRAD0_opsz48.svg": "/photo-tagging-app/static/media/help_FILL0_wght400_GRAD0_opsz48.870f57da5f7dbf8889ac79e316a98987.svg",
+    "static/media/github.svg": "/photo-tagging-app/static/media/github.9b9489c0e2327f30e86ee7e0b5f72f55.svg",
+    "static/media/close_FILL0_wght400_GRAD0_opsz48.svg": "/photo-tagging-app/static/media/close_FILL0_wght400_GRAD0_opsz48.f9e1fd884e38ced99e02.svg",
+    "main.2e93e93d.css.map": "/photo-tagging-app/static/css/main.2e93e93d.css.map",
+    "main.0493bf00.js.map": "/photo-tagging-app/static/js/main.0493bf00.js.map",
+    "787.6eec3de1.chunk.js.map": "/photo-tagging-app/static/js/787.6eec3de1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2e93e93d.css",
+    "static/js/main.0493bf00.js"
+  ]
+}
