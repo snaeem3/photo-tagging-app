@@ -33,7 +33,7 @@ const App = () => {
   };
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="App">
         <header className="App-header">
           <h1>Photo Tagging App</h1>
@@ -75,7 +75,7 @@ const App = () => {
         </Routes>
         <Footer />
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 

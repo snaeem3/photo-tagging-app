@@ -25,28 +25,27 @@ const GameCanvas = (props) => {
     const img = new Image();
     img.src = imgUrl;
     img.onload = () => {
-      // Once the image is loaded, we will get the width & height of the image
-      const loadedImageWidth = img.width;
-      const loadedImageHeight = img.height;
+      // Get the available space in the parent container
+      const parentWidth = canvas.parentElement.clientWidth;
+      const parentHeight = canvas.parentElement.clientHeight;
 
-      // get the scale
-      // it is the min of the 2 ratios
+      // Get the scale
       const scaleFactor = Math.min(
-        canvas.width / img.width,
-        canvas.height / img.height
+        parentWidth / img.width,
+        parentHeight / img.height
       );
 
       // Get the new width and height based on the scale factor
       const newWidth = img.width * scaleFactor;
       const newHeight = img.height * scaleFactor;
 
-      // get the top left position of the image
-      // in order to center the image within the canvas
-      const x = canvas.width / 2 - newWidth / 2;
-      const y = canvas.height / 2 - newHeight / 2;
-      // context.imageSmoothingEnabled = true;
-      canvas.width = img.width;
-      canvas.height = img.height;
+      // Center the canvas
+      const x = parentWidth / 2 - newWidth / 2;
+      const y = parentHeight / 2 - newHeight / 2;
+
+      // Set the canvas dimensions and draw the image
+      canvas.width = newWidth;
+      canvas.height = newHeight;
       context.drawImage(img, x, y, newWidth, newHeight);
     };
   }, [imgUrl]);
