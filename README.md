@@ -1,10 +1,11 @@
 # Photo Tagging App
 
-This project showcases a Where's Waldo Photo Tagging App built with React & Firebase as part of the [Odin Project](https://www.theodinproject.com/lessons/node-path-javascript-where-s-waldo-a-photo-tagging-app) Curriculum. Choose a level, and find Waldo and all his friends as fast as you can. Then, submit your name and check where you placed on the leaderboard!
+This project showcases a Where's Waldo Photo Tagging App built with React & Firebase as part of the [Odin Project](https://www.theodinproject.com/lessons/nodejs-where-s-waldo-a-photo-tagging-app) Curriculum. Choose a level, and find Waldo and all his friends as fast as you can. Then, submit your name and check where you placed on the leaderboard!
 
 The correct target coordinates and leaderboard entries are stored in the Firebase Database.
 
 ## [Live View](https://snaeem3.github.io/photo-tagging-app/)
+
 ![photo-tag-1](https://github.com/snaeem3/photo-tagging-app/assets/11710951/834ebd5d-b98d-4db3-9dd1-f2a4523fb853)
 
 ## Skills involved in this project
